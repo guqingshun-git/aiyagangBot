@@ -75,6 +75,7 @@
         <span>{{ tm('search.noResult') }}</span>
       </div>
 
+      <!-- 官方文档/交流群链接已停用
       <footer v-if="visibleSections.length > 0" class="config-workspace__help">
         {{ tm('help.helpPrefix') }}
         <a href="https://docs.astrbot.app/" target="_blank" rel="noopener noreferrer">
@@ -89,6 +90,7 @@
           {{ tm('help.support') }}
         </a>{{ tm('help.helpSuffix') }}
       </footer>
+      -->
     </main>
   </div>
 </template>

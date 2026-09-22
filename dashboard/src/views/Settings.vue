@@ -261,6 +261,7 @@
                                 <div class="settings-item__label">
                                     <div class="settings-item__title">
                                         <span>{{ tm('apiKey.manageTitle') }}</span>
+                                        <!-- 官方文档链接已停用
                                         <v-tooltip location="top">
                                             <template #activator="{ props }">
                                                 <v-btn
@@ -279,6 +280,7 @@
                                             </template>
                                             <span>{{ tm('apiKey.docsLink') }}</span>
                                         </v-tooltip>
+                                        -->
                                     </div>
                                     <div class="settings-item__subtitle">{{ tm('apiKey.subtitle') }}</div>
                                 </div>
@@ -649,7 +651,8 @@ const settingsNavItems = computed(() => [
     { id: 'security', label: tm('sections.security.title'), icon: 'mdi mdi-shield-lock-outline' },
     { id: 'maintenance', label: tm('sections.maintenance.title'), icon: 'mdi mdi-tools' },
     { id: 'openapi', label: tm('sections.openapi.title'), icon: 'mdi mdi-api' },
-    { id: 'resources', label: tm('sections.resources.title'), icon: 'mdi mdi-information-outline', dividerBefore: true }
+    // // “关于”分区菜单（已停用）
+    // { id: 'resources', label: tm('sections.resources.title'), icon: 'mdi mdi-information-outline', dividerBefore: true }
 ]);
 
 const openExternalLink = (url) => {
@@ -657,11 +660,12 @@ const openExternalLink = (url) => {
     window.open(url, '_blank', 'noopener,noreferrer');
 };
 
-const openFaqLink = () => {
-    openExternalLink(locale.value.startsWith('zh-')
-        ? 'https://docs.astrbot.app/faq.html'
-        : 'https://docs.astrbot.app/en/faq.html');
-};
+// 官方 FAQ 链接已停用
+// const openFaqLink = () => {
+//     openExternalLink(locale.value.startsWith('zh-')
+//         ? 'https://docs.astrbot.app/faq.html'
+//         : 'https://docs.astrbot.app/en/faq.html');
+// };
 
 const resourceItems = computed(() => [
     {
@@ -671,27 +675,28 @@ const resourceItems = computed(() => [
         icon: 'mdi-note-text-outline',
         action: () => { changelogDialog.value = true; }
     },
-    {
-        key: 'documentation',
-        title: t('core.navigation.documentation'),
-        subtitle: tm('resources.documentation.subtitle'),
-        icon: 'mdi-book-open-variant',
-        action: () => openExternalLink('https://docs.astrbot.app')
-    },
-    {
-        key: 'faq',
-        title: t('core.navigation.faq'),
-        subtitle: tm('resources.faq.subtitle'),
-        icon: 'mdi-frequently-asked-questions',
-        action: openFaqLink
-    },
-    {
-        key: 'github',
-        title: t('core.navigation.github'),
-        subtitle: tm('resources.github.subtitle'),
-        icon: 'mdi-github',
-        action: () => openExternalLink('https://github.com/AstrBotDevs/AstrBot')
-    }
+    // 官方文档/GitHub 链接已停用
+    // {
+    //     key: 'documentation',
+    //     title: t('core.navigation.documentation'),
+    //     subtitle: tm('resources.documentation.subtitle'),
+    //     icon: 'mdi-book-open-variant',
+    //     action: () => openExternalLink('https://docs.astrbot.app')
+    // },
+    // {
+    //     key: 'faq',
+    //     title: t('core.navigation.faq'),
+    //     subtitle: tm('resources.faq.subtitle'),
+    //     icon: 'mdi-frequently-asked-questions',
+    //     action: openFaqLink
+    // },
+    // {
+    //     key: 'github',
+    //     title: t('core.navigation.github'),
+    //     subtitle: tm('resources.github.subtitle'),
+    //     icon: 'mdi-github',
+    //     action: () => openExternalLink('https://github.com/AstrBotDevs/AstrBot')
+    // }
 ]);
 
 const configIncludedScopes = ['bot', 'provider'];

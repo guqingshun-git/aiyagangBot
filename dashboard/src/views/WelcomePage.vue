@@ -95,6 +95,7 @@
         </v-col>
       </v-row>
 
+      <!-- 相关资源（已停用）
       <v-row class="px-4 mt-4">
         <v-col cols="12">
           <v-card class="welcome-card pa-6" elevation="0">
@@ -103,7 +104,7 @@
             </div>
             <v-row>
               <v-col cols="12" sm="4">
-                <!-- GitHub Card -->
+                GitHub Card
                 <v-card variant="outlined" class="h-100 pa-4 d-flex flex-column"
                   href="https://github.com/AstrBotDevs/AstrBot/" target="_blank">
                   <div class="d-flex align-center mb-3">
@@ -117,7 +118,7 @@
               </v-col>
 
               <v-col cols="12" sm="4">
-                <!-- Docs Card -->
+                Docs Card
                 <v-card variant="outlined" class="h-100 pa-4 d-flex flex-column" href="https://docs.astrbot.app"
                   target="_blank">
                   <div class="d-flex align-center mb-3">
@@ -131,7 +132,7 @@
               </v-col>
 
               <v-col cols="12" sm="4">
-                <!-- Afdian Card -->
+                Afdian Card
                 <v-card variant="outlined" class="h-100 pa-4 d-flex flex-column"
                   href="https://afdian.com/a/astrbot_team" target="_blank">
                   <div class="d-flex align-center mb-3">
@@ -148,6 +149,7 @@
           </v-card>
         </v-col>
       </v-row>
+      -->
 
       <v-row v-if="showAnnouncement" class="px-4 mb-4">
         <v-col cols="12">

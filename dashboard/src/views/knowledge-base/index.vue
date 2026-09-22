@@ -21,6 +21,7 @@
         </h1>
         <p class="text-body-2 text-medium-emphasis">{{ t('list.subtitle') }}</p>
       </div>
+      <!-- 官方文档链接已停用
       <v-btn
         icon="mdi-information-outline"
         variant="text"
@@ -29,6 +30,7 @@
         href="https://docs.astrbot.app/use/knowledge-base.html"
         target="_blank"
       />
+      -->
     </div>
 
     <router-view @title-change="detailTitle = $event" />

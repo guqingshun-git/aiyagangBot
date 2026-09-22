@@ -1,3 +1,7 @@
+# 关于本仓库
+
+> 本仓库基于 [AstrBot](https://github.com/AstrBotDevs/AstrBot)（AGPLv3 协议）修改，仅改动了 dashboard 前端 UI（品牌名、页面链接、菜单显隐等），遵循 AGPLv3 协议开源。原始 LICENSE 及版权声明已完整保留。
+
 ![AstrBot-Logo-Simplified](https://github.com/user-attachments/assets/36fb04e4-cc75-4454-bd8b-049d11aa86f9)
 
 

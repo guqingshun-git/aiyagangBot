@@ -267,9 +267,11 @@
       {{ snackbar.text }}
     </v-snackbar>
 
+    <!-- 切换到旧版知识库（已停用）
     <div class="position-absolute" style="bottom: 0px; right: 16px;">
       <small @click="router.push('/alkaid/knowledge-base')"><a style="text-decoration: underline; cursor: pointer;">{{ t('list.switchLegacy') }}</a></small>
     </div>
+    -->
 
   </div>
 </template>

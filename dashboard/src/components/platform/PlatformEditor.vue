@@ -850,7 +850,9 @@ async function save() {
 }
 
 function openTutorial() {
-  window.open(getTutorialLink(draft.value.type), "_blank");
+  // 官方文档链接已停用
+  const url = getTutorialLink(draft.value.type);
+  if (url) window.open(url, "_blank");
 }
 
 function showSuccess(message) {

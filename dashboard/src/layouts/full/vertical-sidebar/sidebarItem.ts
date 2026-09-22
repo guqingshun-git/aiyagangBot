@@ -36,11 +36,12 @@ const sidebarItem: menu[] = [
     icon: 'mdi-creation',
     to: '/providers',
   },
-  {
-    title: 'core.navigation.extension',
-    icon: 'mdi-puzzle',
-    to: '/extension',
-  },
+  // // 插件菜单（已停用：通过 /extension/plugins 路由直接访问）
+  // {
+  //   title: 'core.navigation.extension',
+  //   icon: 'mdi-puzzle',
+  //   to: '/extension',
+  // },
   {
     title: 'core.navigation.config',
     icon: 'mdi-cog',

@@ -1,6 +1,6 @@
 <template>
     <div style="display: flex; flex-direction: column; height: 100%;">
-        <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <!-- <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; flex-direction: column;">
             <div style="text-align: center; max-width: 600px;">
                 <h1 class="font-weight-bold">{{ tm('hero.title') }}</h1>
                 <p class="text-subtitle-1" style="color: var(--v-theme-secondaryText);">{{ tm('hero.subtitle') }}</p>
@@ -15,7 +15,7 @@
                     </v-btn>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
 </template>

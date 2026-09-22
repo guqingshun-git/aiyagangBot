@@ -911,7 +911,7 @@ function handleLogoClick() {
 }
 
 getVersion();
-checkUpdate();
+// checkUpdate(); // 已停用：不再自动检查更新
 initPasswordWarningFromStorage();
 
 commonStore.createEventSource(); // log
@@ -1104,7 +1104,7 @@ onMounted(async () => {
       @click="handleLogoClick"
     >
       <span class="logo-text Outfit"
-        >Astr<span class="logo-text bot-text-wrapper"
+        >AYG<span class="logo-text bot-text-wrapper"
           >Bot
           <img
             v-if="isChristmas"
@@ -1143,7 +1143,7 @@ onMounted(async () => {
 
     <v-spacer />
 
-    <!-- 版本提示信息 - 在手机上隐藏 -->
+    <!-- 版本提示信息（已停用） - 在手机上隐藏
     <div v-if="!isChatPath" class="mr-4 hidden-xs">
       <small v-if="hasNewVersion">
         {{ t("core.header.version.hasNewVersion") }}
@@ -1151,7 +1151,7 @@ onMounted(async () => {
       <small v-else-if="dashboardHasNewVersion && !isDesktopReleaseMode">
         {{ t("core.header.version.dashboardHasNewVersion") }}
       </small>
-    </div>
+    </div> -->
 
     <div class="header-actions" :class="{ 'chat-header-actions': isChatPath }">
       <v-btn
@@ -1355,7 +1355,7 @@ onMounted(async () => {
         </v-card>
       </v-menu>
 
-      <!-- 更新按钮 -->
+      <!-- 更新按钮（已停用）
       <v-list-item
         @click="handleUpdateClick"
         class="styled-menu-item"
@@ -1378,6 +1378,7 @@ onMounted(async () => {
           >
         </template>
       </v-list-item>
+      -->
 
       <!-- 账户按钮 -->
       <v-list-item @click="dialog = true" class="styled-menu-item" rounded="md">
@@ -1620,6 +1621,7 @@ onMounted(async () => {
                   {{
                     t("core.header.updateDialog.preReleaseWarning.description")
                   }}
+                  <!-- 官方链接已停用
                   <a
                     href="https://github.com/AstrBotDevs/AstrBot/issues"
                     target="_blank"
@@ -1629,6 +1631,7 @@ onMounted(async () => {
                       t("core.header.updateDialog.preReleaseWarning.issueLink")
                     }}
                   </a>
+                  -->
                 </div>
               </v-alert>
 

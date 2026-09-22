@@ -90,7 +90,7 @@ onMounted(() => {
     } catch (error) {
       console.error("Failed to load version info:", error);
     }
-    await maybeShowFirstNotice();
+    // await maybeShowFirstNotice(); // 已停用：不再弹出首次使用告知
   }, 1000);
 });
 </script>
@@ -163,11 +163,13 @@ onMounted(() => {
         </v-container>
       </v-main>
 
+      <!-- 首次使用告知弹窗（已停用）
       <ReadmeDialog
         :show="showFirstNoticeDialog"
         mode="first-notice"
         @update:show="onFirstNoticeDialogUpdate"
       />
+      -->
     </v-app>
   </v-locale-provider>
 </template>

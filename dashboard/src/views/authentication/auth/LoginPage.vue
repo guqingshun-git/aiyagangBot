@@ -265,6 +265,7 @@ onMounted(async () => {
           </div>
         </v-card-text>
         <v-card-actions class="version-dialog-actions">
+          <!-- 官方文档链接已停用
           <v-btn
             href="https://docs.astrbot.app/faq.html"
             target="_blank"
@@ -274,6 +275,7 @@ onMounted(async () => {
           >
             {{ t('versions.faq') }}
           </v-btn>
+          -->
           <v-spacer />
           <v-btn color="primary" variant="text" @click="versionDialogVisible = false">
             {{ t('versions.close') }}

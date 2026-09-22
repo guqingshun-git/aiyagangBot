@@ -787,6 +787,7 @@
       </v-card-title>
       <v-card-text class="py-4">
         <p>{{ tm("dialog.securityWarning.aiocqhttpTokenMissing") }}</p>
+        <!-- 官方文档链接已停用
         <span
           ><a
             href="https://docs.astrbot.app/platform/aiocqhttp.html"
@@ -794,6 +795,7 @@
             >{{ tm("dialog.securityWarning.learnMore") }}</a
           ></span
         >
+        -->
       </v-card-text>
       <v-card-actions class="px-4 pb-4">
         <v-spacer></v-spacer>
@@ -1308,8 +1310,9 @@ export default {
       }
     },
     openTutorial() {
+      // 官方文档链接已停用
       const tutorialUrl = getTutorialLink(this.selectedPlatformConfig.type);
-      window.open(tutorialUrl, "_blank");
+      if (tutorialUrl) window.open(tutorialUrl, "_blank");
     },
     openConfigDrawer(configId) {
       const targetId = configId || "default";

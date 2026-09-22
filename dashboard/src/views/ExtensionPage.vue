@@ -357,6 +357,7 @@ const updateDialogPluginLogo = computed(() => {
     </v-col>
 
     <v-col v-if="activeTab === 'market'" cols="12" md="12">
+      <!-- 官方文档/GitHub 链接已停用
       <div class="d-flex align-center justify-center mt-4 mb-4 gap-4">
         <v-btn
           variant="text"
@@ -387,6 +388,7 @@ const updateDialogPluginLogo = computed(() => {
           {{ tm("market.submitRepo") }}
         </v-btn>
       </div>
+      -->
     </v-col>
   </v-row>
 
