@@ -496,7 +496,11 @@ class KBHelper:
             return doc
         except Exception as e:
             if isinstance(e, KnowledgeBaseUploadError):
-                logger.warning(f"上传文档失败: {e}", extra={"details": e.details})
+                _cause = e.details.get("cause") if isinstance(e.details, dict) else None
+                logger.warning(
+                    f"上传文档失败: {e} | 失败原因: {_cause} | 原始异常: {e.__cause__!r}",
+                    extra={"details": e.details},
+                )
             else:
                 logger.error(f"上传文档失败: {e}", exc_info=True)
 
