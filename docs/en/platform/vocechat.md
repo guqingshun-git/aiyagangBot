@@ -14,9 +14,11 @@ See deployment methods on the [VoceChat official website](https://voce.chat/en-U
 
 ## Install `astrbot_plugin_vocechat`
 
-In AstrBot WebUI, open `Extensions → Plugins → AstrBot Plugin Market`, search for `astrbot_plugin_vocechat` and install it.
+In AstrBot Dashboard Plugin Market, search for `astrbot_plugin_vocechat` and install it.
 
-After installation, go to `Platforms` -> `Add Adapter` -> `VoceChat`.
+![image](https://files.astrbot.app/docs/source/images/vocechat/image.png)
+
+After installation, go to `Bots` -> `+ Create Bot` -> `VoceChat`.
 If VoceChat is missing, restart AstrBot or verify plugin installation.
 
 Enable the adapter in the configuration dialog.

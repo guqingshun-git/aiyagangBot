@@ -47,7 +47,7 @@ class GitHubRepository:
     Args:
         owner: GitHub repository owner.
         name: GitHub repository name.
-        branch: Explicit source branch, or None to use the default HEAD reference.
+        branch: Explicit or resolved source branch.
     """
 
     owner: str
@@ -92,14 +92,21 @@ class GitHubRepository:
         return cls(owner, name, branch)
 
     @property
-    def archive_url(self) -> str:
-        """Return the source ZIP URL for a branch or the default HEAD reference.
+    def default_branch_api_url(self) -> str:
+        """Return the GitHub repository metadata API URL."""
+        owner = quote(self.owner, safe="")
+        name = quote(self.name, safe="")
+        return f"https://api.github.com/repos/{owner}/{name}"
 
-        Returns:
-            Branch archive URL, or the repository HEAD archive when unspecified.
+    @property
+    def archive_url(self) -> str:
+        """Return the source ZIP URL for the resolved branch.
+
+        Raises:
+            ValueError: If the source branch has not been resolved.
         """
         if not self.branch:
-            return self.revision_archive_url("HEAD")
+            raise ValueError("GitHub source branch has not been resolved")
         owner = quote(self.owner, safe="")
         name = quote(self.name, safe="")
         branch = quote(self.branch, safe="/")
@@ -123,17 +130,22 @@ class GitHubRepository:
         return f"https://github.com/{owner}/{name}/archive/{encoded_revision}.zip"
 
     def raw_file_url(self, path: str) -> str:
-        """Return a raw file URL in a branch or the default HEAD reference.
+        """Return a raw file URL in the resolved branch.
 
         Args:
             path: Repository-relative file path.
 
         Returns:
-            GitHub raw file URL, using HEAD when no branch is specified.
+            GitHub raw file URL.
+
+        Raises:
+            ValueError: If the source branch has not been resolved.
         """
+        if not self.branch:
+            raise ValueError("GitHub source branch has not been resolved")
         owner = quote(self.owner, safe="")
         name = quote(self.name, safe="")
-        branch = quote(self.branch or "HEAD", safe="/")
+        branch = quote(self.branch, safe="/")
         encoded_path = quote(path.lstrip("/"), safe="/")
         return (
             f"https://raw.githubusercontent.com/{owner}/{name}/{branch}/{encoded_path}"

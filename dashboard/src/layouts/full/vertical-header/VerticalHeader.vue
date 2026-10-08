@@ -911,7 +911,7 @@ function handleLogoClick() {
 }
 
 getVersion();
-// checkUpdate(); // 已停用：不再自动检查更新
+checkUpdate();
 initPasswordWarningFromStorage();
 
 commonStore.createEventSource(); // log
@@ -1355,7 +1355,7 @@ onMounted(async () => {
         </v-card>
       </v-menu>
 
-      <!-- 更新按钮（已停用）
+      <!-- 更新按钮 -->
       <v-list-item
         @click="handleUpdateClick"
         class="styled-menu-item"
@@ -1378,7 +1378,6 @@ onMounted(async () => {
           >
         </template>
       </v-list-item>
-      -->
 
       <!-- 账户按钮 -->
       <v-list-item @click="dialog = true" class="styled-menu-item" rounded="md">

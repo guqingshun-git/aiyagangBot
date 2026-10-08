@@ -9,7 +9,6 @@ import yaml
 
 from astrbot.core import logger
 from astrbot.core.repository import (
-    GitHubRepository,
     GitUnavailableError,
     normalize_repository_url,
     parse_repository_url,
@@ -141,7 +140,7 @@ class _PluginUpdater(_RepoZipUpdater):
                 await self._clone_repository(normalized_url, checkout_path)
                 metadata = self.inspect_plugin_directory(checkout_path)["metadata"]
         else:
-            source = GitHubRepository.parse(normalized_url)
+            source = await self._resolve_repository_source(normalized_url)
             proxy = proxy.strip().removesuffix("/")
             async with self._create_httpx_client(
                 timeout=PLUGIN_REPOSITORY_TIMEOUT_SECONDS

@@ -103,6 +103,23 @@ class SkillsService:
                 "You are not permitted to do this operation in demo mode"
             )
 
+    @staticmethod
+    async def _save_upload(file: Any, target_path: str) -> None:
+        if hasattr(file, "save"):
+            maybe_awaitable = file.save(target_path)
+            if hasattr(maybe_awaitable, "__await__"):
+                await maybe_awaitable
+            return
+
+        if hasattr(file, "read"):
+            data = file.read()
+            if hasattr(data, "__await__"):
+                data = await data
+            Path(target_path).write_bytes(data)
+            return
+
+        raise SkillsServiceError("Invalid upload file")
+
     def resolve_local_skill_dir(self, name: str) -> Path:
         skill_name = str(name or "").strip()
         if not skill_name:
@@ -291,7 +308,7 @@ class SkillsService:
         temp_path = _next_available_temp_path(temp_dir, filename)
 
         try:
-            await file.save(temp_path)
+            await self._save_upload(file, temp_path)
             try:
                 skill_name = skill_mgr.install_skill_from_zip(
                     temp_path,
@@ -348,7 +365,7 @@ class SkillsService:
                     continue
 
                 temp_path = _next_available_temp_path(temp_dir, filename)
-                await file.save(temp_path)
+                await self._save_upload(file, temp_path)
 
                 try:
                     skill_name = skill_mgr.install_skill_from_zip(

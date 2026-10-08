@@ -13,7 +13,7 @@ Fully compatible with the OpenAI API format — just change the API Base and Key
 
 ## Configure in AstrBot
 
-Open the AstrBot dashboard , click **Providers → Chat Completion → Add → OpenAI Compatible**.
+Open the AstrBot dashboard , click **Providers → Add Provider → OpenAI**.
 
 Fill in the following:
 
@@ -22,7 +22,9 @@ Fill in the following:
 | API Base URL | `https://aihubmix.com/v1` |
 | API Key | Your AIHubMix key |
 
-Enter the provider name and `API Key`, check the `API Base URL`, then click **Save and Fetch Models**. Click `+` beside the desired model and make sure it is enabled. Alternatively, click **Save Configuration**, then **Custom Model** and enter the exact model ID. Use **Test Model** beside the configured model to check availability.
+After saving, click the provider card to add models.
+
+![Configure in AstrBot](https://github.com/user-attachments/assets/ee2fb8ba-652c-4e97-a781-42a9082ad7eb)
 
 ## Recommended Models
 
@@ -56,13 +58,13 @@ AIHubMix also supports the following capabilities, all configurable in AstrBot:
 
 | Capability | AstrBot Config Location |
 |------------|------------------------|
-| Speech-to-Text (STT) | Providers → Speech to Text → Add |
-| Text-to-Speech (TTS) | Providers → Text to Speech → Add |
-| Embedding | Providers → Embedding → Add |
-| Reranking | Providers → Rerank → Add |
+| Speech-to-Text (STT) | Providers → Speech to Text |
+| Text-to-Speech (TTS) | Providers → Text to Speech |
+| Embedding | Providers → Embedding |
+| Reranking | Providers → Rerank |
 
-Add a provider and select a model separately in each capability tab. You can reuse the API key; configure the endpoint and other fields for the corresponding API.
+All capabilities use the same API Key and API Base — no extra setup needed.
 
 ## Set as Default
 
-Open **Config**, select the profile to use, and go to **AI → Model**. Set **Chat Model** to the model you just added, then click **Save Configuration** at the bottom right. This setting is for AstrBot built-in AI.
+Go to **Settings → Provider Settings**, set "Default Chat Model Provider" to your AIHubMix provider, and save.

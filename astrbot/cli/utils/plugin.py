@@ -63,20 +63,36 @@ def download_repository(
 
     Raises:
         ValueError: If the repository URL is unsupported or invalid.
-        httpx.HTTPError: If the repository archive cannot be downloaded.
+        httpx.HTTPError: If repository metadata or the archive cannot be downloaded.
     """
     from astrbot.core.repository import GitHubRepository
 
     temp_dir = Path(tempfile.mkdtemp())
     try:
         repository = GitHubRepository.parse(url)
-        reference = (
-            f"branch {repository.branch}"
-            if repository.branch
-            else "default reference HEAD"
-        )
+        if not repository.branch:
+            try:
+                with httpx.Client(follow_redirects=True, trust_env=True) as client:
+                    response = client.get(repository.default_branch_api_url)
+                    response.raise_for_status()
+                    default_branch = str(
+                        response.json().get("default_branch") or ""
+                    ).strip()
+            except httpx.HTTPError as exc:
+                default_branch = ""
+                click.echo(
+                    f"Failed to resolve the default GitHub branch: {exc}. Trying main."
+                )
+            branch = default_branch or "main"
+            repository = GitHubRepository(
+                repository.owner,
+                repository.name,
+                branch,
+            )
+
         click.echo(
-            f"Downloading {repository.owner}/{repository.name} from GitHub {reference}"
+            f"Downloading {repository.owner}/{repository.name} "
+            f"from GitHub branch {repository.branch}"
         )
         download_url = repository.archive_url
         if proxy:

@@ -7,7 +7,9 @@
 
 ## Create AstrBot Misskey Platform Adapter
 
-Open `Platforms` in the WebUI, click `Add Adapter`, select `Misskey`, and fill in the connection details described below. Click `Save` when finished.
+Navigate to the messaging platform, click to add a new adapter, find Misskey and click to enter the Misskey configuration page.
+
+![Create Misskey Platform Adapter](https://files.astrbot.app/docs/source/images/misskey/create.png)
 
 ## Configure Platform Adapter Settings
 
@@ -18,6 +20,8 @@ Don't forget to click `Enable` before saving to activate the Misskey platform ad
 :::
 
 How to obtain the Misskey connection information is described below.
+
+![Misskey Platform Adapter Configuration](https://files.astrbot.app/docs/source/images/misskey/config.png)
 
 ## Misskey Instance URL
 
@@ -84,7 +88,7 @@ Enabled by default. When enabled, the bot will respond to private chat messages 
 
 ## History Records
 
-Conversation history for individual users in chats and posts appears under `Data & Logs` -> `Conversations` in the AstrBot WebUI. Chat conversations use `chat:UserID` as the session ID, while traditional posts use `note:UserID`.
+Conversation history for individual users in chats and posts appears under `Data` -> `Conversations` in the AstrBot WebUI. Chat conversations use `chat:UserID` as the session ID, while traditional posts use `note:UserID`.
 
 ::: tip Where is the Misskey user's UserID?
 It can be found on the user's personal page in the `Raw` section. UserID is the unique key identifier for Misskey users within a single instance.
