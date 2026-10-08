@@ -24,8 +24,6 @@
     },
     "config": "Конфигурация",
     "chat": "Чат",
-    "botMode": "Бот",
-    "options": "Параметры",
     "cron": "Запланированные задачи",
     "conversation": "Данные диалогов",
     "sessionManagement": "Пользовательские правила",
@@ -34,22 +32,14 @@
     "alkaid": "Alkaid Lab",
     "knowledgeBase": "База знаний",
     "about": "О программе",
-    "settings": "Системные настройки",
-    "pin": "Закрепить",
-    "unpin": "Открепить",
-    "groupByPlugin": "Группировать по плагинам",
-    "ungroupByPlugin": "Отменить группировку",
-    "expandSidebar": "Развернуть боковую панель",
-    "collapseSidebar": "Свернуть боковую панель",
+    "settings": "Настройки",
     "changelog": "Журнал изменений",
     "documentation": "Документация",
     "faq": "FAQ",
     "github": "GitHub",
     "drag": "Перетащить",
     "groups": {
-        "more": "Дополнительно",
-        "system": "Система",
-        "extension": "Расширения"
+        "more": "Дополнительно"
     },
     "changelogDialog": {
         "title": "Журнал изменений",
@@ -63,6 +53,5 @@
         "normal": "Обычная конфигурация",
         "system": "Системная конфигурация"
     },
-    "pluginView": "Представления плагинов",
-    "pluginViewType": "Представление плагина"
+    "pluginWebui": "Страницы плагинов"
 }

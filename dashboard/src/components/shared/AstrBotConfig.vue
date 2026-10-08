@@ -1,5 +1,5 @@
 <script setup>
-import { LazyMonacoEditor as VueMonacoEditor } from '@/components/shared/LazyMonacoEditor';
+import { VueMonacoEditor } from '@guolao/vue-monaco-editor'
 import { ref, computed } from 'vue'
 import ConfigItemRenderer from './ConfigItemRenderer.vue'
 import ConfigDefaultReset from './ConfigDefaultReset.vue'

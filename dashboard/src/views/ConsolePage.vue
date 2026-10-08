@@ -55,7 +55,6 @@ async function pipInstall() {
     <ConsoleDisplayer
       class="console-display"
       workspace-mode
-      show-search
       :auto-scroll="autoScrollEnabled"
       :hide-user-chat="hideUserChatEnabled"
     >

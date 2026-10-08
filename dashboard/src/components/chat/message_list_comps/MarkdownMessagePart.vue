@@ -10,8 +10,7 @@
       :smooth-streaming="isStreaming ? 'auto' : false"
       :fade="false"
       :typewriter="false"
-      :node-virtual="false"
-      :max-live-nodes="isStreaming ? MARKDOWN_RENDER_MAX_LIVE_NODES : 0"
+      :max-live-nodes="MARKDOWN_RENDER_MAX_LIVE_NODES"
       :style="CHAT_MARKDOWN_HEADING_STYLE"
     />
   </div>

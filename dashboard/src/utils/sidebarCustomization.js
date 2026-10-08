@@ -72,7 +72,6 @@ export function resolveSidebarItems(defaultItems, customization, options = {}) {
   const all = new Map();
   const defaultMain = [];
   const defaultMore = [];
-  const defaultMoreGroup = defaultItems.find(item => item.children && item.title === MORE_GROUP_KEY);
 
   // 收集所有条目，按 title 建索引
   defaultItems.forEach(item => {
@@ -142,7 +141,7 @@ export function resolveSidebarItems(defaultItems, customization, options = {}) {
         ...mainItems,
         {
           title: MORE_GROUP_KEY,
-          icon: defaultMoreGroup?.icon || 'mdi-dots-horizontal',
+          icon: 'mdi-dots-horizontal',
           children
         }
       ];

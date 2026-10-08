@@ -10,10 +10,6 @@
     "enabled": "User chat hidden",
     "disabled": "Hide user chat"
   },
-  "search": {
-    "label": "Search logs",
-    "placeholder": "Filter logs by keyword"
-  },
   "pipInstall": {
     "button": "Install pip Package",
     "dialogTitle": "Install Pip Package",

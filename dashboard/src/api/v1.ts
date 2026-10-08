@@ -1425,7 +1425,7 @@ export const pluginApi = {
   },
   page(pluginId: string, pageName: string) {
     return typed<any>(
-      openApiV1.getPluginViewById({
+      openApiV1.getPluginPageById({
         query: { plugin_id: pluginId, page_name: pageName },
       }) as any,
     );

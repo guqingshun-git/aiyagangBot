@@ -350,14 +350,10 @@ async function handleDeleteSession(projectId: string, session: ProjectSession) {
 }
 
 .project-row:hover,
-.project-session-row:hover {
-  background: var(--chat-session-active-bg);
-}
-
-/* Active session stays clearly highlighted (subtle in light mode otherwise). */
 .project-row.active,
+.project-session-row:hover,
 .project-session-row.active {
-  background: rgba(var(--v-theme-primary), 0.22);
+  background: var(--chat-session-active-bg);
 }
 
 .project-emoji {

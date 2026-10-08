@@ -12,9 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import ProviderSelectMenu from "@/components/shared/ProviderSelectMenu.vue";
-import { useProviderModelSelection } from "@/composables/useProviderModelSelection";
 
 interface ProviderSelection {
   id: string;
@@ -30,20 +29,25 @@ const props = withDefaults(
   },
 );
 
-const { selectedProviderId, selectedModelName, setSelection } =
-  useProviderModelSelection();
+const SELECTED_PROVIDER_KEY = "selectedProvider";
+const SELECTED_PROVIDER_MODEL_KEY = "selectedProviderModel";
+const selectedProviderId = ref("");
+const selectedModelName = ref("");
 const providerSelectMenuRef = ref<InstanceType<
   typeof ProviderSelectMenu
 > | null>(null);
 const variant = props.variant;
 
 function updateSelection(value: string | string[]) {
-  if (typeof value === "string") setSelection(value, selectedModelName.value);
+  if (typeof value === "string") selectedProviderId.value = value;
 }
 
 function saveSelection(provider: ProviderSelection | null) {
   if (!provider) return;
-  setSelection(provider.id, provider.model || "");
+  selectedProviderId.value = provider.id;
+  selectedModelName.value = provider.model || "";
+  localStorage.setItem(SELECTED_PROVIDER_KEY, provider.id);
+  localStorage.setItem(SELECTED_PROVIDER_MODEL_KEY, provider.model || "");
 }
 
 function getCurrentSelection() {
@@ -54,6 +58,12 @@ function getCurrentSelection() {
     }
   );
 }
+
+onMounted(() => {
+  selectedProviderId.value = localStorage.getItem(SELECTED_PROVIDER_KEY) || "";
+  selectedModelName.value =
+    localStorage.getItem(SELECTED_PROVIDER_MODEL_KEY) || "";
+});
 
 defineExpose({ getCurrentSelection });
 </script>

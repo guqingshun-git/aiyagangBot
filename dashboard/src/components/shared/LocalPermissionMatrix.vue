@@ -86,7 +86,7 @@
                   </template>
                   <template #subtitle>
                     <div class="scope-hint">
-                      {{ tm(item.value === 'none' ? 'scopeHints.none' : `modeHints.${item.value}`) }}
+                      {{ tm(item.value === 'none' ? 'scopeHints.none' : 'scopeHints.host') }}
                       <v-menu
                         v-if="item.value !== 'none'"
                         open-on-hover

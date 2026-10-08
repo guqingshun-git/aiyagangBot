@@ -817,10 +817,38 @@
     </v-card>
   </v-dialog>
 
-  <ConfigProfileDrawer
+  <v-overlay
     v-model="showConfigDrawer"
-    :config-id="configDrawerTargetId || ''"
-  />
+    class="config-drawer-overlay"
+    location="right"
+    transition="slide-x-reverse-transition"
+    :scrim="true"
+    @click:outside="closeConfigDrawer"
+  >
+    <v-card class="config-drawer-card" elevation="12">
+      <div class="config-drawer-header">
+        <div>
+          <span class="text-h6">{{
+            tm("createDialog.configDrawerTitle")
+          }}</span>
+          <div v-if="configDrawerTargetId" class="text-caption text-grey">
+            {{ tm("createDialog.configDrawerIdLabel") }}:
+            {{ configDrawerTargetId }}
+          </div>
+        </div>
+        <v-btn icon variant="text" @click="closeConfigDrawer">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </div>
+      <v-divider></v-divider>
+      <div class="config-drawer-content">
+        <ConfigPage
+          v-if="showConfigDrawer"
+          :initial-config-id="configDrawerTargetId"
+        />
+      </div>
+    </v-card>
+  </v-overlay>
 </template>
 
 <script>
@@ -833,7 +861,7 @@ import {
 } from "@/utils/platformUtils";
 import AstrBotConfig from "@/components/shared/AstrBotConfig.vue";
 import AstrBotCoreConfigWrapper from "@/components/config/AstrBotCoreConfigWrapper.vue";
-import ConfigProfileDrawer from "@/components/config/ConfigProfileDrawer.vue";
+import ConfigPage from "@/views/ConfigPage.vue";
 import PlatformRegistrationAction from "@/components/platform/PlatformRegistrationAction.vue";
 import UmoDisplay from "@/components/shared/UmoDisplay.vue";
 
@@ -842,7 +870,7 @@ export default {
   components: {
     AstrBotConfig,
     AstrBotCoreConfigWrapper,
-    ConfigProfileDrawer,
+    ConfigPage,
     PlatformRegistrationAction,
     UmoDisplay,
   },
@@ -1298,6 +1326,9 @@ export default {
 
       this.configDrawerTargetId = targetId;
       this.showConfigDrawer = true;
+    },
+    closeConfigDrawer() {
+      this.showConfigDrawer = false;
     },
     newPlatform() {
       this.loading = true;
@@ -1947,6 +1978,32 @@ export default {
 <style>
 .v-select__selection-text {
   font-size: 12px;
+}
+
+.config-drawer-overlay {
+  align-items: stretch;
+  justify-content: flex-end;
+}
+
+.config-drawer-card {
+  width: clamp(320px, 60vw, 820px);
+  height: calc(100vh - 32px);
+  display: flex;
+  flex-direction: column;
+  margin: 16px;
+}
+
+.config-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px 20px;
+}
+
+.config-drawer-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 16px 24px 16px;
 }
 
 .platform-action-row {

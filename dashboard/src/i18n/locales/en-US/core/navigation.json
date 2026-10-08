@@ -16,8 +16,6 @@
   "toolUse": "MCP Tools",
   "config": "Config",
   "chat": "Chat",
-  "botMode": "Bot",
-  "options": "Options",
   "cron": "Future Tasks",
   "extension": "Extensions",
   "extensionTabs": {
@@ -34,22 +32,14 @@
   "alkaid": "Alkaid Lab",
   "knowledgeBase": "Knowledge Base",
   "about": "About",
-  "settings": "System Settings",
-  "pin": "Pin to top",
-  "unpin": "Unpin",
-  "groupByPlugin": "Group by plugin",
-  "ungroupByPlugin": "Ungroup plugin views",
-  "expandSidebar": "Expand sidebar",
-  "collapseSidebar": "Collapse sidebar",
+  "settings": "Settings",
   "changelog": "Changelog",
   "documentation": "Documentation",
   "faq": "FAQ",
   "github": "GitHub",
   "drag": "Drag",
   "groups": {
-    "more": "More Features",
-    "system": "System",
-    "extension": "Extensions"
+    "more": "More Features"
   },
   "changelogDialog": {
     "title": "Changelog",
@@ -63,6 +53,5 @@
     "normal": "Normal Config",
     "system": "System Config"
   },
-  "pluginView": "Plugin Views",
-  "pluginViewType": "Plugin View"
+  "pluginWebui": "Plugin Pages"
 }

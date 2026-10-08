@@ -1,11 +1,7 @@
 <template>
 
   <div class="config-page-shell">
-    <div
-      v-if="selectedConfigID || isSystemConfig"
-      class="config-panel"
-      :class="{ 'config-panel--embedded': initialConfigId !== null }"
-    >
+    <div v-if="selectedConfigID || isSystemConfig" class="config-panel">
 
       <div class="config-toolbar-sticky">
         <div
@@ -58,6 +54,7 @@
           </div>
         </div>
         <div class="config-toolbar-separator">
+          <v-divider />
           <v-progress-linear
             v-if="!fetched"
             indeterminate
@@ -99,7 +96,7 @@
         <v-tooltip text="测试当前配置" location="left" v-if="!isSystemConfig">
           <template v-slot:activator="{ props }">
             <v-btn v-bind="props" icon="mdi-chat-processing" size="x-large"
-              style="position: fixed; right: 52px; bottom: 196px;" color="primary"
+              style="position: fixed; right: 52px; bottom: 196px;" color="secondary"
               @click="openTestChat">
             </v-btn>
           </template>
@@ -165,12 +162,7 @@
 
         <!-- Config List -->
         <v-list lines="two">
-          <v-list-item
-            v-for="config in configInfoList"
-            :key="config.id"
-            :title="configDisplayName(config)"
-            :subtitle="config.id"
-          >
+          <v-list-item v-for="config in configInfoList" :key="config.id" :title="configDisplayName(config)">
             <template v-slot:append>
               <div class="d-flex align-center" style="gap: 8px;">
                 <v-btn icon="mdi-content-copy" size="small" variant="text" color="primary"
@@ -261,7 +253,7 @@ import { configProfileApi, systemConfigApi } from '@/api/v1';
 import AstrBotCoreConfigWrapper from '@/components/config/AstrBotCoreConfigWrapper.vue';
 import ConfigProfileMenu from '@/components/config/ConfigProfileMenu.vue';
 import StandaloneChat from '@/components/chat/StandaloneChat.vue';
-import { LazyMonacoEditor as VueMonacoEditor } from '@/components/shared/LazyMonacoEditor';
+import { VueMonacoEditor } from '@guolao/vue-monaco-editor'
 import { useI18n, useModuleI18n } from '@/i18n/composables';
 import {
   askForConfirmation as askForConfirmationDialog,
@@ -1039,19 +1031,12 @@ export default {
   z-index: -1;
   top: 0;
   bottom: 0;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  width: calc(100vw - var(--v-layout-left, 0px));
+  max-width: 100vw;
+  transform: translateX(-50%);
   background: rgb(var(--v-theme-containerBg));
   content: '';
-}
-
-/* Embedded in the config drawer: stick to the drawer's top, not the app bar. */
-.config-panel--embedded .config-toolbar-sticky {
-  /* Cover the drawer's 16px top padding as well, so scrolled content does not
-     bleed through the strip above the bar. */
-  top: -16px;
-  padding-top: 16px;
-  background: rgb(var(--v-theme-containerBg));
 }
 
 .config-toolbar {
@@ -1103,9 +1088,11 @@ export default {
 
 .config-toolbar-separator {
   position: relative;
-  width: 100%;
+  width: calc(100vw - var(--v-layout-left, 0px));
+  max-width: 100vw;
   height: 1px;
-  margin-left: 0;
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 
 .config-toolbar-separator :is(.v-divider) {

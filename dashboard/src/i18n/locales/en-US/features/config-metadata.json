@@ -329,10 +329,6 @@
           "files": "File access only",
           "full": "Unrestricted access"
         },
-        "modeHints": {
-          "files": "Read and write all files in the environment, without Shell/Python execution or network access.",
-          "full": "Read and write all files in the environment, with Shell/Python execution and network access."
-        },
         "unsupportedSelection": "Current policy is unsupported",
         "runtimeUnknown": "Runtime information is unavailable.",
         "memberWarning": "Members have network access or file access across the entire environment.",
@@ -1033,6 +1029,15 @@
         }
       }
     },
+    "t2i": {
+      "description": "Text-to-Image",
+      "t2i": {
+        "description": "Text-to-Image Output"
+      },
+      "t2i_word_threshold": {
+        "description": "Text-to-Image Word Count Threshold"
+      }
+    },
     "others": {
       "description": "Other Settings",
       "platform_settings": {
@@ -1185,15 +1190,12 @@
           }
         }
       }
-    },
-    "t2i": {
-      "description": "Text-to-Image",
-      "t2i": {
-        "description": "Text-to-Image Output"
-      },
-      "t2i_word_threshold": {
-        "description": "Text-to-Image Word Count Threshold"
-      },
+    }
+  },
+  "system_group": {
+    "name": "System",
+    "system": {
+      "description": "System Settings",
       "t2i_strategy": {
         "description": "Text-to-Image Strategy",
         "hint": "Text-to-image strategy. `remote` uses a remote HTML-based rendering service, `local` uses PIL for local rendering. When using local, place a TTF font named 'font.ttf' in the data/ directory to customize the font."
@@ -1209,13 +1211,7 @@
       "t2i_active_template": {
         "description": "Currently Active Text-to-Image Rendering Template",
         "hint": "This value is maintained by the text-to-image template management page."
-      }
-    }
-  },
-  "system_group": {
-    "name": "System",
-    "system": {
-      "description": "System Settings",
+      },
       "log_level": {
         "description": "Console Log Level",
         "hint": "Log level for console output."

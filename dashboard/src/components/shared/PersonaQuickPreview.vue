@@ -49,6 +49,16 @@
       <pre class="prompt-content">{{ personaData.system_prompt || "" }}</pre>
 
       <v-alert
+        v-if="editable && isDefaultPersona"
+        type="info"
+        variant="tonal"
+        density="compact"
+        class="mt-3"
+      >
+        {{ tm("personaQuickPreview.defaultPersonaReadonly") }}
+      </v-alert>
+
+      <v-alert
         v-if="saveError"
         type="error"
         variant="tonal"
@@ -102,6 +112,13 @@ const saved = ref(false);
 let savedTimer;
 let personaLoadVersion = 0;
 
+const defaultPersonaData = {
+  persona_id: "default",
+  system_prompt: "You are a helpful and friendly assistant.",
+  tools: null,
+  skills: null,
+};
+
 const isDefaultPersona = computed(() => props.modelValue === "default");
 const previewTitle = computed(() => {
   if (!props.modelValue) {
@@ -113,7 +130,7 @@ const previewTitle = computed(() => {
   return tm("personaQuickPreview.titleWithName", { name: personaName });
 });
 const canEdit = computed(
-  () => props.editable && Boolean(personaData.value),
+  () => props.editable && Boolean(personaData.value) && !isDefaultPersona.value,
 );
 async function persistCapabilities(field, nextValue, previousValue) {
   const personaId = props.modelValue;
@@ -183,6 +200,12 @@ async function loadPersonaPreview(personaId) {
   if (!personaId) {
     loading.value = false;
     personaData.value = null;
+    return;
+  }
+
+  if (personaId === "default") {
+    loading.value = false;
+    personaData.value = defaultPersonaData;
     return;
   }
 

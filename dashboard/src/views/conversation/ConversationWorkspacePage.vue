@@ -8,7 +8,7 @@ import {
   watch,
 } from "vue";
 import { RouterLink, useRoute, useRouter } from "vue-router";
-import { LazyMonacoEditor as VueMonacoEditor } from '@/components/shared/LazyMonacoEditor';
+import { VueMonacoEditor } from "@guolao/vue-monaco-editor";
 import {
   Bot,
   Braces,
