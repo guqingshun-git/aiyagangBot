@@ -1322,6 +1322,27 @@ def _select_image_chat_provider(
     return provider
 
 
+def _matches_provider_wake_prefix(
+    event: AstrMessageEvent,
+    provider_wake_prefix: str,
+) -> bool:
+    """Return whether an event satisfies the provider wake prefix.
+
+    Args:
+        event: Incoming event whose message and platform should be inspected.
+        provider_wake_prefix: Prefix required by the provider, if any.
+
+    Returns:
+        True when no prefix is configured, WebChat is exempt, or the message
+        starts with the configured prefix.
+    """
+    return (
+        not provider_wake_prefix
+        or event.get_platform_name() == "webchat"
+        or (event.message_str or "").startswith(provider_wake_prefix)
+    )
+
+
 async def collect_initial_request(
     event: AstrMessageEvent,
     plugin_context: Context,
@@ -1355,7 +1376,22 @@ async def collect_initial_request(
                 list(req.contexts) if isinstance(req.contexts, list) else req.contexts
             )
             if req.conversation:
-                req.contexts = json.loads(req.conversation.history)
+                # Handler requests can be prepared before the pipeline acquires
+                # the session lock. Reload the bound conversation here so queued
+                # turns include replies saved while they were waiting.
+                conversation = (
+                    await plugin_context.conversation_manager.get_conversation(
+                        event.unified_msg_origin, req.conversation.cid
+                    )
+                )
+                if conversation is None:
+                    _set_llm_error_message(
+                        event,
+                        "The requested conversation no longer exists. Please send a new message.",
+                    )
+                    return None, None
+                req.conversation = conversation
+                req.contexts = json.loads(conversation.history)
         else:
             req = ProviderRequest()
             req.prompt = ""
@@ -1363,12 +1399,15 @@ async def collect_initial_request(
             req.audio_urls = []
             if sel_model := event.get_extra("selected_model"):
                 req.model = sel_model
-            if config.provider_wake_prefix and not event.message_str.startswith(
-                config.provider_wake_prefix
-            ):
+            provider_wake_prefix = config.provider_wake_prefix
+            if not _matches_provider_wake_prefix(event, provider_wake_prefix):
                 return None, None
 
-            req.prompt = event.message_str[len(config.provider_wake_prefix) :]
+            req.prompt = event.message_str
+            if provider_wake_prefix and event.message_str.startswith(
+                provider_wake_prefix
+            ):
+                req.prompt = event.message_str[len(provider_wake_prefix) :]
 
             # media files attachments
             for comp in event.message_obj.message:
@@ -1403,7 +1442,17 @@ async def collect_initial_request(
                         TextPart(text=f"[Image Attachment: path {image_path}]")
                     )
                 elif isinstance(comp, Record):
-                    audio_path = await comp.convert_to_file_path()
+                    try:
+                        audio_path = await comp.convert_to_file_path()
+                    except Exception as exc:  # noqa: BLE001
+                        logger.warning(
+                            "Voice attachment is unavailable (%s).",
+                            type(exc).__name__,
+                        )
+                        req.extra_user_content_parts.append(
+                            TextPart(text="[Voice unavailable]")
+                        )
+                        continue
                     req.audio_urls.append(audio_path)
                     _append_audio_attachment(req, audio_path)
                 elif isinstance(comp, File):
@@ -1457,7 +1506,17 @@ async def collect_initial_request(
                                     event.track_temporary_local_file(image_path)
                             _append_quoted_image_attachment(req, image_path)
                         elif isinstance(reply_comp, Record):
-                            audio_path = await reply_comp.convert_to_file_path()
+                            try:
+                                audio_path = await reply_comp.convert_to_file_path()
+                            except Exception as exc:  # noqa: BLE001
+                                logger.warning(
+                                    "Quoted voice is unavailable (%s).",
+                                    type(exc).__name__,
+                                )
+                                req.extra_user_content_parts.append(
+                                    TextPart(text="[Voice unavailable]")
+                                )
+                                continue
                             req.audio_urls.append(audio_path)
                             _append_quoted_audio_attachment(req, audio_path)
                         elif isinstance(reply_comp, File):

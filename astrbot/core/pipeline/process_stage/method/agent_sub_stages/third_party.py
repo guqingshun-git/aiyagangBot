@@ -14,6 +14,7 @@ from astrbot.core.agent.runners.deerflow.deerflow_agent_runner import (
 )
 from astrbot.core.agent.runners.dify.dify_agent_runner import DifyAgentRunner
 from astrbot.core.astr_agent_hooks import MAIN_AGENT_HOOKS
+from astrbot.core.astr_main_agent import _matches_provider_wake_prefix
 from astrbot.core.message.components import Image, Record
 from astrbot.core.message.message_event_result import (
     MessageChain,
@@ -280,21 +281,38 @@ class ThirdPartyAgentSubStage(Stage):
     ) -> AsyncGenerator[None, None]:
         req: ProviderRequest | None = None
 
-        if provider_wake_prefix and not event.message_str.startswith(
-            provider_wake_prefix
+        if not _matches_provider_wake_prefix(
+            event,
+            provider_wake_prefix,
         ):
             return
 
         # make provider request
         req = ProviderRequest()
         req.session_id = event.unified_msg_origin
-        req.prompt = event.message_str[len(provider_wake_prefix) :]
+        req.prompt = event.message_str
+        if provider_wake_prefix and event.message_str.startswith(provider_wake_prefix):
+            req.prompt = event.message_str[len(provider_wake_prefix) :]
         for comp in event.message_obj.message:
             if isinstance(comp, Image):
-                image_path = await comp.convert_to_base64()
+                try:
+                    image_path = await comp.convert_to_base64()
+                except Exception as exc:  # noqa: BLE001
+                    logger.warning(
+                        "Image attachment is unavailable (%s).",
+                        type(exc).__name__,
+                    )
+                    continue
                 req.image_urls.append(image_path)
             elif isinstance(comp, Record):
-                audio_path = await comp.convert_to_file_path()
+                try:
+                    audio_path = await comp.convert_to_file_path()
+                except Exception as exc:  # noqa: BLE001
+                    logger.warning(
+                        "Voice attachment is unavailable (%s).",
+                        type(exc).__name__,
+                    )
+                    continue
                 req.audio_urls.append(audio_path)
 
         if not req.prompt and not req.image_urls and not req.audio_urls:

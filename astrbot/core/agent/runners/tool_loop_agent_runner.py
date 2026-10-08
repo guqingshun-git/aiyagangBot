@@ -505,6 +505,9 @@ class ToolLoopAgentRunner(BaseAgentRunner[TContext]):
             "contexts": self._sanitize_contexts_for_provider(self.run_context.messages),
             "func_tool": self._func_tool_for_provider(),
             "session_id": self.req.session_id,
+            "conversation_id": (
+                self.req.conversation.cid if self.req.conversation else None
+            ),
             "extra_user_content_parts": self.req.extra_user_content_parts,  # list[ContentPart]
             "abort_signal": self._abort_signal,
             "request_max_retries": self.request_max_retries,
@@ -1588,6 +1591,13 @@ class ToolLoopAgentRunner(BaseAgentRunner[TContext]):
                     yield next_result_task.result()
                 except StopAsyncIteration:
                     return
+            except asyncio.CancelledError:
+                if not next_result_task.done():
+                    next_result_task.cancel()
+                # The reader must finish before its async generator can be closed.
+                await asyncio.gather(next_result_task, return_exceptions=True)
+                await self._close_executor(executor)
+                raise
             finally:
                 if not abort_task.done():
                     abort_task.cancel()
